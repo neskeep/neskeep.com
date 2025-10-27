@@ -30,7 +30,7 @@ export function generateEmailTemplate(data: EmailData): string {
                   <td style="padding: 40px 30px; text-align: center;">
                     <!-- Logo SVG -->
                     <div style="margin: 0 auto 20px; max-width: 200px;">
-                      <img src:"https://www.neskeep.com/logo.png" />
+                      <img src:"https://www.neskeep.com/logo.png" width="200px" height="auto"  />
                     </div>
                     <p style="margin: 12px 0 0 0; color: #A8B2D1; font-size: 14px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase;">
                       Nuevo mensaje de contacto
