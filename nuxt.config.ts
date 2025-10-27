@@ -28,11 +28,6 @@ export default defineNuxtConfig({
       crawlLinks: true,
       routes: [
         '/',
-        '/servicios',
-        '/casos',
-        '/sobre-mi',
-        '/blog',
-        '/contacto'
       ]
     }
   },
