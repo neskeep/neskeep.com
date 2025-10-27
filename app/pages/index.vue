@@ -170,12 +170,21 @@ const submitForm = async () => {
   submitStatus.value = null
 
   try {
-    // Aquí integrarías con tu backend o servicio de email
-    await new Promise(resolve => setTimeout(resolve, 1500))
-    submitStatus.value = 'success'
-    formData.value = { name: '', email: '', phone: '', company: '', message: '', budget: '' }
+    const response = await $fetch('/api/contact', {
+      method: 'POST',
+      body: formData.value
+    })
+
+    if (response.success) {
+      submitStatus.value = 'success'
+      formData.value = { name: '', email: '', phone: '', company: '', message: '', budget: '' }
+    } else {
+      submitStatus.value = 'error'
+      console.error('Error:', response.error)
+    }
   } catch (error) {
     submitStatus.value = 'error'
+    console.error('Error al enviar el formulario:', error)
   } finally {
     isSubmitting.value = false
   }
