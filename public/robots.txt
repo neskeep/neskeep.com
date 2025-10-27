@@ -1,0 +1,6 @@
+# robots.txt para Neskeep
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://neskeep.com/sitemap.xml
