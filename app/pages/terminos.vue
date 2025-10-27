@@ -172,8 +172,8 @@ useSeoMeta({
                 </h2>
                 <p class="text-gray-300 leading-relaxed">
                   Para cualquier pregunta sobre estos términos, contáctanos en:
-                  <a href="mailto:isenior@neskeep.com" class="text-brand hover:text-accent transition-colors font-semibold">
-                    isenior@neskeep.com
+                  <a href="mailto:hello@neskeep.com" class="text-brand hover:text-accent transition-colors font-semibold">
+                    hello@neskeep.com
                   </a>
                 </p>
               </section>

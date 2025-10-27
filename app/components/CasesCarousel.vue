@@ -71,9 +71,9 @@ onUnmounted(() => {
         <div
           v-for="(slide, slideIndex) in slides"
           :key="slideIndex"
-          class="w-full flex-shrink-0"
+          class="w-full shrink-0"
         >
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 py-10">
             <div
               v-for="(caseItem, index) in slide"
               :key="index"

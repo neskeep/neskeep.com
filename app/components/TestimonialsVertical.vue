@@ -24,11 +24,11 @@ const speeds = [30, 25, 35] // seconds
 
 <template>
   <div class="overflow-hidden">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
       <div
         v-for="(column, colIndex) in columns"
         :key="colIndex"
-        class="testimonials-column"
+        class="testimonials-column px-10"
       >
         <div
           class="testimonials-track"

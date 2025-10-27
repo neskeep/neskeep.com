@@ -59,8 +59,8 @@ export default defineEventHandler(async (event) => {
 
     // Enviar email usando Resend
     const { data, error } = await resend.emails.send({
-      from: 'Neskeep Contacto <isenior@neskeep.com>', // Cambiar por tu dominio verificado
-      to: ['isenior@neskeep.com'], // Cambiar por tu email real
+      from: 'Neskeep Contacto <hello@neskeep.com>', // Cambiar por tu dominio verificado
+      to: ['hello@neskeep.com'], // Cambiar por tu email real
       subject: `Nuevo mensaje de contacto - ${body.name}`,
       html: htmlContent,
       replyTo: body.email

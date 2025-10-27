@@ -49,7 +49,7 @@ const classes = computed(() => {
   const variants = {
     primary: 'btn-glow text-bg shadow-lg hover:shadow-xl',
     secondary: 'bg-surface text-white border border-border hover:border-brand/60 hover:shadow-glow-sm',
-    outline: 'border-2 border-brand text-brand hover:bg-brand hover:text-bg',
+    outline: 'btn-outline shadow-lg hover:shadow-xl',
     ghost: 'text-brand hover:bg-brand/10'
   }
 

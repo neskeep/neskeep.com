@@ -210,7 +210,7 @@ const submitForm = async () => {
             <a href="#contacto" class="inline-flex items-center justify-center font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:opacity-50 disabled:pointer-events-none rounded-xl px-8 py-4 text-lg btn-glow text-bg shadow-lg hover:shadow-xl">
               Cuéntame tu proyecto
             </a>
-            <a href="#casos" class="inline-flex items-center justify-center font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:opacity-50 disabled:pointer-events-none rounded-xl px-8 py-4 text-lg border-2 border-brand text-brand hover:bg-brand hover:text-bg">
+            <a href="#casos" class="inline-flex items-center justify-center font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:opacity-50 disabled:pointer-events-none rounded-xl px-8 py-4 text-lg btn-outline shadow-lg hover:shadow-xl">
               Ver casos
             </a>
           </div>
@@ -498,7 +498,7 @@ const submitForm = async () => {
                 </div>
 
                 <div v-if="submitStatus === 'error'" class="p-4 rounded-xl bg-red-500/10 border border-red-500/50 text-red-400">
-                  Hubo un error. Por favor intenta de nuevo o escríbenos a isenior@neskeep.com
+                  Hubo un error. Por favor intenta de nuevo o escríbenos a hello@neskeep.com
                 </div>
 
                 <button
@@ -511,7 +511,7 @@ const submitForm = async () => {
                 </button>
 
                 <p class="text-center text-sm text-gray-400">
-                  O escríbenos directamente a <a href="mailto:isenior@neskeep.com" class="text-brand hover:underline">isenior@neskeep.com</a>
+                  O escríbenos directamente a <a href="mailto:hello@neskeep.com" class="text-brand hover:underline">hello@neskeep.com</a>
                   o WhatsApp <a href="https://wa.me/18092225466" class="text-brand hover:underline">+1 809 222 5466</a>
                 </p>
               </form>

@@ -56,7 +56,7 @@ const isActive = (href) => {
             {{ item.name }}
             <!-- Indicador activo -->
             <span
-              class="absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-brand to-accent transition-all duration-300"
+              class="absolute -bottom-1 left-0 h-0.5 bg-brand transition-all duration-300"
               :class="isActive(item.href) ? 'w-full' : 'w-0 group-hover:w-full'"
             />
           </a>
