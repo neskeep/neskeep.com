@@ -235,7 +235,14 @@ ${data.message}
                 <tr>
                   <td style="text-align: center; padding-top: 16px;">
                     <p style="margin: 0; color: #6B7280; font-size: 11px;">
-                      ${new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                      ${new Date().toLocaleDateString('es-ES', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        timeZone: 'America/Santo_Domingo' // República Dominicana (GMT-4)
+                      })}
                     </p>
                   </td>
                 </tr>

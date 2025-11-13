@@ -6,7 +6,7 @@ export const useSeo = (options = {}) => {
   const defaults = {
     siteName: 'Neskeep',
     siteUrl: 'https://neskeep.com',
-    defaultImage: '/og.png',
+    defaultImage: '/og.svg', // TODO: Convertir a og.png (1200x630) para mejor compatibilidad
     twitterHandle: '@neskeep'
   }
 

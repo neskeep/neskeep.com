@@ -180,7 +180,7 @@ useSeoMeta({
 
               <div class="mt-16 pt-8 border-t border-border/50">
                 <p class="text-sm text-gray-500">
-                  Última actualización: Octubre 2025
+                  Última actualización: Octubre 2024
                 </p>
               </div>
             </div>
