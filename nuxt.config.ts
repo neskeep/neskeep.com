@@ -17,8 +17,8 @@ export default defineNuxtConfig({
   ],
 
   umami: {
-    id: process.env.NUXT_PUBLIC_UMAMI_ID,
-    host: process.env.NUXT_PUBLIC_UMAMI_HOST,
+    id: process.env.NUXT_PUBLIC_UMAMI_ID || 'abda3c4d-d86b-47fc-926c-558bb5587521',
+    host: process.env.NUXT_PUBLIC_UMAMI_HOST || 'https://analytics.pinturaspopular.com',
     autoTrack: true,
     // proxy: 'cloak',
     useDirective: true,
@@ -27,7 +27,7 @@ export default defineNuxtConfig({
     // domains: ['localhost:3000', 'neskeep.com'],
     // customEndpoint: '/my-custom-endpoint',
     // enabled: false,
-    // logErrors: true,
+    logErrors: true,
   },
 
   hotjar: {
@@ -70,6 +70,16 @@ export default defineNuxtConfig({
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
         { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap' }
+      ],
+      script: [
+        {
+          async: true,
+          src: 'https://analytics.pinturaspopular.com/script.js',
+          'data-website-id': 'abda3c4d-d86b-47fc-926c-558bb5587521'
+        },
+        {
+          src: 'https://t.contentsquare.net/uxa/047ef512f9b85.js'
+        }
       ]
     }
   }

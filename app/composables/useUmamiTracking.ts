@@ -14,8 +14,21 @@ export const useUmamiTracking = () => {
    * @param eventData - Datos adicionales del evento (opcional)
    */
   const trackEvent = (eventName: string, eventData?: UmamiEventData) => {
-    if (process.client && window.umami) {
-      window.umami.track(eventName, eventData)
+    if (process.client) {
+      // Esperar a que el script de Umami se cargue
+      if (typeof window !== 'undefined' && window.umami) {
+        console.log('[Umami] Tracking event:', eventName, eventData)
+        window.umami.track(eventName, eventData)
+      } else {
+        console.warn('[Umami] Script not loaded yet. Event queued:', eventName, eventData)
+        // Reintentar después de un delay
+        setTimeout(() => {
+          if (window.umami) {
+            console.log('[Umami] Retry - Tracking event:', eventName, eventData)
+            window.umami.track(eventName, eventData)
+          }
+        }, 1000)
+      }
     }
   }
 
