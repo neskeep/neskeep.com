@@ -10,11 +10,31 @@ export default defineNuxtConfig({
 
   devtools: { enabled: true },
 
-  modules: ['@nuxt/eslint'],
+  modules: ['@nuxt/eslint', 'nuxt-umami', 'nuxt-module-hotjar'],
 
   css: [
     '~/assets/css/tailwind.css'
   ],
+
+  umami: {
+    id: process.env.NUXT_PUBLIC_UMAMI_ID,
+    host: process.env.NUXT_PUBLIC_UMAMI_HOST,
+    autoTrack: true,
+    // proxy: 'cloak',
+    useDirective: true,
+    ignoreLocalhost: false,
+    // excludeQueryParams: false,
+    // domains: ['localhost:3000', 'neskeep.com'],
+    // customEndpoint: '/my-custom-endpoint',
+    // enabled: false,
+    // logErrors: true,
+  },
+
+  hotjar: {
+    hotjarId: 402984,
+    scriptVersion: 6,
+    debug: process.env.NODE_ENV !== 'production' // Debug solo en desarrollo
+  },
 
   vite: {
     plugins: [
@@ -28,6 +48,8 @@ export default defineNuxtConfig({
       crawlLinks: true,
       routes: [
         '/',
+        '/privacidad',
+        '/terminos'
       ]
     }
   },
