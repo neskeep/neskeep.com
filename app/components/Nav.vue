@@ -8,13 +8,48 @@ const navigation = [
   { name: 'FAQs', href: '#faqs' }
 ]
 
+// Umami tracking
+const {
+  trackLogoClick,
+  trackNavClick,
+  trackCtaClick,
+  trackMobileMenuToggle
+} = useUmamiTracking()
+
 const toggleMenu = () => {
-  isMenuOpen.value = !isMenuOpen.value
+  const newState = !isMenuOpen.value
+  isMenuOpen.value = newState
+
+  // Track mobile menu toggle
+  trackMobileMenuToggle(newState ? 'open' : 'close')
 }
 
 // Cerrar menú al hacer clic en un enlace
 const closeMenu = () => {
   isMenuOpen.value = false
+}
+
+// Handle logo click
+const handleLogoClick = () => {
+  trackLogoClick('header')
+}
+
+// Handle navigation link click
+const handleNavClick = (section, device) => {
+  trackNavClick(section, device)
+
+  if (device === 'mobile') {
+    closeMenu()
+  }
+}
+
+// Handle contact CTA click
+const handleContactClick = (device) => {
+  trackCtaClick('header_nav', 'Contacto', 'navigation')
+
+  if (device === 'mobile') {
+    closeMenu()
+  }
 }
 
 // Active section tracking
@@ -40,6 +75,7 @@ const isActive = (href) => {
           to="/"
           class="flex items-center gap-3 hover:opacity-80 transition-opacity"
           aria-label="Inicio - Neskeep"
+          @click="handleLogoClick"
         >
           <Logo class="h-10 w-auto" />
         </NuxtLink>
@@ -52,6 +88,7 @@ const isActive = (href) => {
             :href="item.href"
             class="relative text-gray-300 hover:text-brand transition-colors font-medium py-1"
             :class="{ 'text-brand': isActive(item.href) }"
+            @click="handleNavClick(item.name, 'desktop')"
           >
             {{ item.name }}
             <!-- Indicador activo -->
@@ -64,6 +101,7 @@ const isActive = (href) => {
             href="#contacto"
             class="inline-flex items-center justify-center font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:opacity-50 disabled:pointer-events-none rounded-lg px-4 py-2 text-sm btn-glow text-bg shadow-lg hover:shadow-xl"
             :class="{ 'ring-2 ring-brand': isActive('#contacto') }"
+            @click="handleContactClick('desktop')"
           >
             Contacto
           </a>
@@ -128,7 +166,7 @@ const isActive = (href) => {
             :class="{
               'text-brand bg-brand/10 border-l-2 border-brand': isActive(item.href)
             }"
-            @click="closeMenu"
+            @click="handleNavClick(item.name, 'mobile')"
           >
             {{ item.name }}
           </a>
@@ -137,7 +175,7 @@ const isActive = (href) => {
               href="#contacto"
               class="inline-flex items-center justify-center font-semibold transition-all duration-300 w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:opacity-50 disabled:pointer-events-none rounded-lg px-4 py-2 text-sm btn-glow text-bg shadow-lg hover:shadow-xl"
               :class="{ 'ring-2 ring-brand': isActive('#contacto') }"
-              @click="closeMenu"
+              @click="handleContactClick('mobile')"
             >
               Contacto
             </a>

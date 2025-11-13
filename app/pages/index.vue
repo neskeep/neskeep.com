@@ -15,6 +15,43 @@ useSeoMeta({
 const { setupReveal } = useScrollReveal()
 setupReveal()
 
+// Umami tracking
+const {
+  trackCtaClick,
+  trackServiceClick,
+  trackFormStart,
+  trackFormFieldComplete,
+  trackFormBudgetSelect,
+  trackFormSubmitAttempt,
+  trackFormSuccess,
+  trackFormError
+} = useUmamiTracking()
+
+// Track form interaction
+const formStarted = ref(false)
+const completedFields = ref([])
+
+const handleFormStart = () => {
+  if (!formStarted.value) {
+    formStarted.value = true
+    trackFormStart()
+  }
+}
+
+const handleFieldComplete = (fieldName) => {
+  if (!completedFields.value.includes(fieldName)) {
+    completedFields.value.push(fieldName)
+    trackFormFieldComplete(fieldName)
+  }
+}
+
+const handleBudgetChange = (value) => {
+  if (value) {
+    trackFormBudgetSelect(value)
+    handleFieldComplete('budget')
+  }
+}
+
 const featuredCases = [
   {
     category: 'E-commerce',
@@ -169,6 +206,9 @@ const submitForm = async () => {
   isSubmitting.value = true
   submitStatus.value = null
 
+  // Track form submit attempt
+  trackFormSubmitAttempt(completedFields.value)
+
   try {
     const response = await $fetch('/api/contact', {
       method: 'POST',
@@ -177,13 +217,25 @@ const submitForm = async () => {
 
     if (response.success) {
       submitStatus.value = 'success'
+
+      // Track successful form submission
+      trackFormSuccess(
+        formData.value.budget,
+        !!formData.value.phone,
+        !!formData.value.company
+      )
+
       formData.value = { name: '', email: '', phone: '', company: '', message: '', budget: '' }
+      completedFields.value = []
+      formStarted.value = false
     } else {
       submitStatus.value = 'error'
+      trackFormError('server_error')
       console.error('Error:', response.error)
     }
   } catch (error) {
     submitStatus.value = 'error'
+    trackFormError('network_error')
     console.error('Error al enviar el formulario:', error)
   } finally {
     isSubmitting.value = false
@@ -207,10 +259,18 @@ const submitForm = async () => {
           </p>
 
           <div class="flex flex-wrap gap-4 justify-center pt-6" data-reveal data-delay="200ms">
-            <a href="#contacto" class="inline-flex items-center justify-center font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:opacity-50 disabled:pointer-events-none rounded-xl px-8 py-4 text-lg btn-glow text-bg shadow-lg hover:shadow-xl">
+            <a
+              href="#contacto"
+              class="inline-flex items-center justify-center font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:opacity-50 disabled:pointer-events-none rounded-xl px-8 py-4 text-lg btn-glow text-bg shadow-lg hover:shadow-xl"
+              @click="trackCtaClick('hero', 'Cuéntame tu proyecto')"
+            >
               Cuéntame tu proyecto
             </a>
-            <a href="#casos" class="inline-flex items-center justify-center font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:opacity-50 disabled:pointer-events-none rounded-xl px-8 py-4 text-lg btn-outline shadow-lg hover:shadow-xl">
+            <a
+              href="#casos"
+              class="inline-flex items-center justify-center font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:opacity-50 disabled:pointer-events-none rounded-xl px-8 py-4 text-lg btn-outline shadow-lg hover:shadow-xl"
+              @click="trackCtaClick('hero', 'Ver casos', 'hero')"
+            >
               Ver casos
             </a>
           </div>
@@ -243,7 +303,10 @@ const submitForm = async () => {
             <div class="grid grid-cols-1 md:grid-cols-6 lg:grid-cols-12 gap-6 auto-rows-[minmax(280px,auto)]" data-reveal>
               <!-- Desarrollo Web -->
               <div class="md:col-span-6 lg:col-span-8 lg:row-span-2">
-                <div class="card-glow rounded-3xl h-full p-8 md:p-12 relative overflow-hidden bg-linear-to-br from-brand/10 via-surface/50 to-surface/30 group">
+                <div
+                  class="card-glow rounded-3xl h-full p-8 md:p-12 relative overflow-hidden bg-linear-to-br from-brand/10 via-surface/50 to-surface/30 group cursor-pointer transition-transform hover:scale-[1.02]"
+                  @click="trackServiceClick('Desarrollo Web', 1)"
+                >
                   <div class="relative z-10 h-full flex flex-col justify-between">
                     <div>
                       <div class="text-6xl mb-6 float">🚀</div>
@@ -302,7 +365,10 @@ const submitForm = async () => {
 
               <!-- Automatización -->
               <div class="md:col-span-3 lg:col-span-6 lg:row-span-1">
-                <div class="card-glow rounded-3xl h-full p-8 bg-gradient-to-br from-accent/10 to-surface/30">
+                <div
+                  class="card-glow rounded-3xl h-full p-8 bg-gradient-to-br from-accent/10 to-surface/30 cursor-pointer transition-transform hover:scale-[1.02]"
+                  @click="trackServiceClick('Automatización', 2)"
+                >
                   <div class="text-5xl mb-4 float">⚙️</div>
                   <h3 class="text-2xl font-bold text-white mb-3">
                     Automatización
@@ -320,7 +386,10 @@ const submitForm = async () => {
 
               <!-- Marketing de Datos -->
               <div class="md:col-span-3 lg:col-span-6 lg:row-span-1">
-                <div class="card-glow rounded-3xl h-full p-8 bg-gradient-to-br from-blue-500/10 to-surface/30">
+                <div
+                  class="card-glow rounded-3xl h-full p-8 bg-linear-to-br from-blue-500/10 to-surface/30 cursor-pointer transition-transform hover:scale-[1.02]"
+                  @click="trackServiceClick('Marketing de Datos', 3)"
+                >
                   <div class="text-5xl mb-4 float">📊</div>
                   <h3 class="text-2xl font-bold text-white mb-3">
                     Marketing de Datos
@@ -421,6 +490,8 @@ const submitForm = async () => {
                       required
                       class="w-full px-4 py-3 rounded-xl bg-surface border border-border text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition-all"
                       placeholder="Juan Pérez"
+                      @focus="handleFormStart"
+                      @blur="formData.name && handleFieldComplete('name')"
                     >
                   </div>
 
@@ -435,6 +506,8 @@ const submitForm = async () => {
                       required
                       class="w-full px-4 py-3 rounded-xl bg-surface border border-border text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition-all"
                       placeholder="juan@empresa.com"
+                      @focus="handleFormStart"
+                      @blur="formData.email && handleFieldComplete('email')"
                     >
                   </div>
                 </div>
@@ -450,6 +523,7 @@ const submitForm = async () => {
                       type="tel"
                       class="w-full px-4 py-3 rounded-xl bg-surface border border-border text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition-all"
                       placeholder="+1 809 222 5466"
+                      @blur="formData.phone && handleFieldComplete('phone')"
                     >
                   </div>
 
@@ -463,6 +537,7 @@ const submitForm = async () => {
                       type="text"
                       class="w-full px-4 py-3 rounded-xl bg-surface border border-border text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition-all"
                       placeholder="Mi Empresa SRL"
+                      @blur="formData.company && handleFieldComplete('company')"
                     >
                   </div>
                 </div>
@@ -476,6 +551,7 @@ const submitForm = async () => {
                     v-model="formData.budget"
                     :options="budgetOptions"
                     placeholder="Selecciona un rango"
+                    @update:model-value="handleBudgetChange"
                   />
                 </div>
 
@@ -490,6 +566,8 @@ const submitForm = async () => {
                     rows="5"
                     class="w-full px-4 py-3 rounded-xl bg-surface border border-border text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent transition-all resize-none"
                     placeholder="Describe brevemente tu proyecto, objetivos y plazos..."
+                    @focus="handleFormStart"
+                    @blur="formData.message && handleFieldComplete('message')"
                   />
                 </div>
 
