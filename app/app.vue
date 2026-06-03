@@ -96,7 +96,7 @@ const handleMouseMove = (e) => {
           <div class="lg:col-span-7 space-y-8">
             <div class="space-y-4">
               <p class="text-brand font-semibold tracking-wide text-sm uppercase">
-                Menos promesas, mas codigo
+                Menos promesas, más código
               </p>
               <h1 class="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-[1.05] tracking-tight">
                 Estamos<br>
@@ -106,7 +106,7 @@ const handleMouseMove = (e) => {
             </div>
 
             <p class="text-lg md:text-xl text-gray-400 leading-relaxed max-w-xl">
-              Nuestro nuevo ecosistema digital esta en camino.
+              Nuestro nuevo ecosistema digital está en camino.
               Si tienes un proyecto en mente, no esperes al lanzamiento.
             </p>
 
