@@ -10,6 +10,9 @@ export default defineNuxtConfig({
 
   devtools: { enabled: true },
 
+  // Disabled while under construction (no routes/layouts needed)
+  pages: false,
+
   modules: ['@nuxt/eslint', 'nuxt-umami', 'nuxt-module-hotjar'],
 
   css: [
